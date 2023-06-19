@@ -71,7 +71,6 @@ app.route(prefix+ '/authenticate')
 
 app.route(prefix + '/matiere')
   .get(matiere.getMatieres)
-  .post(matiere.postMatiere)
 
 // On démarre le serveur
 app.listen(port, "0.0.0.0");

@@ -2,7 +2,12 @@ const jwt = require('jsonwebtoken');
 let User = require("../model/user");
 let secret = "*[gbHf{4}{wuZ+:6@jh4#THnS]kU89";
 
-module.exports = {authorize, getUserByToken};
+module.exports = {authorize, getUserByToken, checkIfAdmin};
+
+const Role = {
+    Admin : "Admin",
+    Normal : "Normal",
+}
 
 function authorize() {
     return [
@@ -23,5 +28,14 @@ async function getUserByToken(req, res, next){
         })
     }catch(err){
         return res.status(500).json({message : err.message});
+    }
+}
+
+async function checkIfAdmin(req, res, next){
+    if(!req.user.userType == Role.Admin){
+        r
+        return res.status(403).json({message: "Utilisateur non autorisé"})
+    }else{
+        next();
     }
 }

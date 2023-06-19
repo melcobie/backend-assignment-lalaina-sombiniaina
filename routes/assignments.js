@@ -27,8 +27,9 @@ function getAssignments(req, res){
 // Récupérer un assignment par son id (GET)
 function getAssignment(req, res){
     let assignmentId = req.params.id;
-    Assignment.findOne({id: assignmentId}, (err, assignment) =>{
+    Assignment.findOne({_id: assignmentId}, (err, assignment) =>{
         if(err){res.send(err)}
+        console.log(assignment)
         res.json(assignment);
     })
 }

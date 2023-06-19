@@ -6,7 +6,10 @@ let AssignmentSchema = Schema({
     dateDeRendu: Date,
     nom: String,
     rendu: Boolean,
-    eleve: String,
+    eleve: {
+        type: Object,
+        required: true,
+    },
     note: Number,
     remarques: String,
     matiere: {

@@ -1,18 +1,23 @@
 let express = require('express');
+let mongoose = require('mongoose');
 let app = express();
 let bodyParser = require('body-parser');
-let assignment = require('./routes/assignments');
-let user = require('./routes/users');
+
 let User = require('./model/user');
 let crypto = require('crypto');
-let mongoose = require('mongoose');
+
+let assignment = require('./routes/assignments');
+let user = require('./routes/users');
+let matiere = require('./routes/matiere');
+
+let middleware = require("./middleware/authorize");
 
 mongoose.Promise = global.Promise;
 //mongoose.set('debug', true);
 
 // remplacer toute cette chaine par l'URI de connexion à votre propre base dans le cloud s
 //const uri = 'mongodb+srv://sombitiako:TmgNpR3h6CShZHY8@cluster0.7jxzown.mongodb.net/?retryWrites=true&w=majority';
-const uri = 'mongodb://127.0.0.1:27017/assignments?retryWrites=true&w=majority';
+const uri = 'mongodb://127.0.0.1:27017/assignment?retryWrites=true&w=majority';
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -41,6 +46,9 @@ app.use(function (req, res, next) {
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
+//Pour les images
+app.use(express.static('public'));
+
 let port = process.env.PORT || 8010;
 
 // les routes
@@ -55,11 +63,15 @@ app.route(prefix + '/assignments/:id')
 
 
 app.route(prefix + '/assignments')
-  .post(assignment.postAssignment)
+  .post(middleware.getUserByToken, assignment.postAssignment)
   .put(assignment.updateAssignment);
 
 app.route(prefix+ '/authenticate')
   .post(user.authenticate);
+
+app.route(prefix + '/matiere')
+  .get(matiere.getMatieres)
+  .post(matiere.postMatiere)
 
 // On démarre le serveur
 app.listen(port, "0.0.0.0");

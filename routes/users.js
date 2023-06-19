@@ -9,7 +9,7 @@ async function authenticate(req,res){
     let registered = await User.findOne({email: user.email?.toLowerCase(), encryptedPassword: password}).select("-encryptedPassword");
     if(registered){
         let token = jwt.sign({sub: registered._id}, secret,{
-            expiresIn: '1h'
+            expiresIn: '5h'
         });
         res.json({
             userInfo:registered, 

@@ -2,19 +2,31 @@ let Assignment = require('../model/assignment');
 
 // Récupérer tous les assignments (GET)
 function getAssignments(req, res){
-    Assignment.find((err, assignments) => {
+    let {limit=10,page=1,status} = req.query;
+    let query = {};
+    if(status){
+        query = {
+            rendu: status === "rendu"?true:false
+        }
+    }
+    Assignment.paginate(query,{offset:(limit *(page-1)),limit:limit },(err,reponse)=>{
+        if(err){
+            res.status(400).send("");
+        }
+        res.send(reponse);
+    });
+    /*Assignment.find((err, assignments) => {
         if(err){
             res.send(err)
         }
 
         res.send(assignments);
-    });
+    });*/
 }
 
 // Récupérer un assignment par son id (GET)
 function getAssignment(req, res){
     let assignmentId = req.params.id;
-
     Assignment.findOne({id: assignmentId}, (err, assignment) =>{
         if(err){res.send(err)}
         res.json(assignment);

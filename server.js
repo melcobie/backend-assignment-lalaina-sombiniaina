@@ -59,12 +59,12 @@ app.route(prefix + '/assignments')
 
 app.route(prefix + '/assignments/:id')
   .get(assignment.getAssignment)
-  .delete(assignment.deleteAssignment);
+  .delete(middleware.getUserByToken, middleware.checkIfAdmin,assignment.deleteAssignment);
 
 
 app.route(prefix + '/assignments')
   .post(middleware.getUserByToken, assignment.postAssignment)
-  .put(assignment.updateAssignment);
+  .put(middleware.getUserByToken, middleware.checkIfAdmin, assignment.updateAssignment);
 
 app.route(prefix+ '/authenticate')
   .post(user.authenticate);

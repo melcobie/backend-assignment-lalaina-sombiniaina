@@ -2,21 +2,34 @@ let Assignment = require('../model/assignment');
 
 // Récupérer tous les assignments (GET)
 function getAssignments(req, res){
-    Assignment.find((err, assignments) => {
+    let {limit=10,page=1,status} = req.query;
+    let query = {};
+    if(status){
+        query = {
+            rendu: status === "rendu"?true:false
+        }
+    }
+    Assignment.paginate(query,{offset:(limit *(page-1)),limit:limit },(err,reponse)=>{
+        if(err){
+            res.status(400).send("");
+        }
+        res.send(reponse);
+    });
+    /*Assignment.find((err, assignments) => {
         if(err){
             res.send(err)
         }
 
         res.send(assignments);
-    });
+    });*/
 }
 
 // Récupérer un assignment par son id (GET)
 function getAssignment(req, res){
     let assignmentId = req.params.id;
-
-    Assignment.findOne({id: assignmentId}, (err, assignment) =>{
+    Assignment.findOne({_id: assignmentId}, (err, assignment) =>{
         if(err){res.send(err)}
+        console.log(assignment)
         res.json(assignment);
     })
 }
@@ -27,7 +40,9 @@ function postAssignment(req, res){
     assignment.id = req.body.id;
     assignment.nom = req.body.nom;
     assignment.dateDeRendu = req.body.dateDeRendu;
-    assignment.rendu = req.body.rendu;
+    assignment.rendu = false;
+    assignment.matiere = req.body.matiere;
+    assignment.eleve = req.user;
 
     console.log("POST assignment reçu :");
     console.log(assignment)
@@ -36,7 +51,7 @@ function postAssignment(req, res){
         if(err){
             res.send('cant post assignment ', err);
         }
-        res.json({ message: `${assignment.nom} saved!`})
+        res.json({ message: `${assignment.nom} saved!`, _id: assignment._id})
     })
 }
 

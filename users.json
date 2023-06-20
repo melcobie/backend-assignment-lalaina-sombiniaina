@@ -1,0 +1,53 @@
+[
+    {
+        "email": "admin@uca.fr",
+        "name": "Admin",
+        "userType": "Admin",
+        "encryptedPassword": "c18134d8975134b2999f476c215ec0b9"
+    },{
+        "email": "admin2@uca.fr",
+        "name": "Second Admin",
+        "userType": "Admin",
+        "encryptedPassword": "c18134d8975134b2999f476c215ec0b9"
+    },{
+        "email": "alice@uca.fr",
+        "name": "Alice Dupont",
+        "userType": "Normal",
+        "encryptedPassword": "c18134d8975134b2999f476c215ec0b9"
+    },{
+        "email": "bob@uca.fr",
+        "name": "Bob Richard",
+        "userType": "Normal",
+        "encryptedPassword": "c18134d8975134b2999f476c215ec0b9"
+    },{
+        "email": "jacques@uca.fr",
+        "name": "Jacques Adit",
+        "userType": "Normal",
+        "encryptedPassword": "c18134d8975134b2999f476c215ec0b9"
+    },{
+        "email": "kiboy@uca.fr",
+        "name": "Kiboy Onic",
+        "userType": "Normal",
+        "encryptedPassword": "c18134d8975134b2999f476c215ec0b9"
+    },{
+        "email": "venus@uca.fr",
+        "name": "Vee Ohmy",
+        "userType": "Normal",
+        "encryptedPassword": "c18134d8975134b2999f476c215ec0b9"
+    },{
+        "email": "yawi@uca.fr",
+        "name": "Yawi Echo",
+        "userType": "Normal",
+        "encryptedPassword": "c18134d8975134b2999f476c215ec0b9"
+    },{
+        "email": "kairi@uca.fr",
+        "name": "Kairi God",
+        "userType": "Normal",
+        "encryptedPassword": "c18134d8975134b2999f476c215ec0b9"
+    },{
+        "email": "wise@uca.fr",
+        "name": "Wise BL",
+        "userType": "Normal",
+        "encryptedPassword": "c18134d8975134b2999f476c215ec0b9"
+    }
+]

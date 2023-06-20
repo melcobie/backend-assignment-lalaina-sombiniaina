@@ -9,6 +9,7 @@ let crypto = require('crypto');
 let assignment = require('./routes/assignments');
 let user = require('./routes/users');
 let matiere = require('./routes/matiere');
+let peupler = require('./routes/peupler');
 
 let middleware = require("./middleware/authorize");
 
@@ -16,8 +17,8 @@ mongoose.Promise = global.Promise;
 //mongoose.set('debug', true);
 
 // remplacer toute cette chaine par l'URI de connexion à votre propre base dans le cloud s
-//const uri = 'mongodb+srv://sombitiako:TmgNpR3h6CShZHY8@cluster0.7jxzown.mongodb.net/?retryWrites=true&w=majority';
-const uri = 'mongodb://127.0.0.1:27017/assignment?retryWrites=true&w=majority';
+const uri = 'mongodb+srv://assignment_user:l3ZW66F2lbJRPqW4@cluster0.2tfsfap.mongodb.net/assignment?retryWrites=true&w=majority';
+// const uri = 'mongodb://127.0.0.1:27017/assignment?retryWrites=true&w=majority';
 const options = {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -70,7 +71,10 @@ app.route(prefix+ '/authenticate')
   .post(user.authenticate);
 
 app.route(prefix + '/matiere')
-  .get(matiere.getMatieres)
+  .get(matiere.getMatieres);
+
+app.route(prefix + "/peupler")
+  .get(peupler.peupler);
 
 // On démarre le serveur
 app.listen(port, "0.0.0.0");
